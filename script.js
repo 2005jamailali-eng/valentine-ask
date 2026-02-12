@@ -1,78 +1,132 @@
-// Elements
-const envelope = document.getElementById("envelope-container");
-const letter = document.getElementById("letter-container");
-const noBtn = document.querySelector(".no-btn");
-const yesBtn = document.querySelector(".btn[alt='Yes']");
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("heart-bg.jpg");
+    background-size: cover;
+    font-family: "Pixelify Sans", sans-serif;
+}
 
-const title = document.getElementById("letter-title");
-const catImg = document.getElementById("letter-cat");
-const buttons = document.getElementById("letter-buttons");
-const finalText = document.getElementById("final-text");
+/* Envelope Screen */
+#envelope-container {
+    text-align: center;
+    cursor: pointer;
+}
 
-// Click Envelope
+#envelope {
+    width: 200px;
+    animation: pulse 1.5s infinite;
+}
 
-envelope.addEventListener("click", () => {
-    envelope.style.display = "none";
-    letter.style.display = "flex";
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
 
-    setTimeout( () => {
-        document.querySelector(".letter-window").classList.add("open");
-    },50);
-});
+#letter-container {
+    display: none;
+    position: fixed;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+}
 
-// Logic to move the NO btn
+.letter-window {
+    width: 90vw;
+    max-width: 800px;
+    aspect-ratio: 3/2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url("window.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 12px;
+    padding-top: 180px;
+    transform: scale(1.2);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
 
-noBtn.addEventListener("mouseover", () => {
-    const min = 200;
-    const max = 200;
+.letter-window.open {
+    transform: scale(1);
+    opacity: 1;
+}
 
-    const distance = Math.random() * (max - min) + min;
-    const angle = Math.random() * Math.PI * 2;
+h1 {
+    font-size: 30px;
+    margin: 0;
+}
 
-    const moveX = Math.cos(angle) * distance;
-    const moveY = Math.sin(angle) * distance;
+p {
+    font-size: 20px;
+}
 
-    noBtn.style.transition = "transform 0.3s ease";
-    noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-});
+/* Cat */
+.cat {
+    width: 250px;
+    margin: 10px 0;
+    transition: width 0.4s ease;
+}
 
-// Logic to make YES btn to grow
+.letter-window.final .cat {
+    width: 180px;
+}
 
-// let yesScale = 1;
+/* Buttons */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    position: relative;
+}
 
-// yesBtn.style.position = "relative"
-// yesBtn.style.transformOrigin = "center center";
-// yesBtn.style.transition = "transform 0.3s ease";
+.no-wrapper {
+    position: relative;
+}
 
-// noBtn.addEventListener("click", () => {
-//     yesScale += 2;
+.btn {
+    width: 120px;
+    cursor: pointer;
+    user-select: none;
+}
 
-//     if (yesBtn.style.position !== "fixed") {
-//         yesBtn.style.position = "fixed";
-//         yesBtn.style.top = "50%";
-//         yesBtn.style.left = "50%";
-//         yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-//     }else{
-//         yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-//     }
-// });
+.yes-btn, .no-btn {
+    width: 120px;
+    display: inline-block;
+}
 
-// YES is clicked
+.yes-btn {
+    position: relative;
+    z-index: 2;
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+}
 
-document.addEventListener("DOMContentLoaded", () => {
-    const finalText = document.getElementById("final-text");
-    const yesBtn = document.querySelector(".btn[alt='Yes']");
-    const buttons = document.getElementById("letter-buttons");
-    const title = document.getElementById("letter-title");
-    const catImg = document.getElementById("letter-cat");
+.no-btn {
+    z-index: 1;
+    position: relative;
+    transition: transform 0.15s ease;
+    cursor: default;
+}
 
-    yesBtn.addEventListener("click", () => {
-        title.textContent = "Yippeeee!";
-        catImg.src = "cat_dance.gif";
-        document.querySelector(".letter-window").classList.add("final");
-        buttons.style.display = "none";
-        finalText.style.display = "block";
-    });
-});
-
-
+/* Final Letter */
+.final-text {
+    display: none;
+    font-size: 20px;
+    line-height: 1.5;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(255,240,240,0.6);
+    border-radius: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
