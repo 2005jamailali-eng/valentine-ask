@@ -128,12 +128,14 @@ display: inline-block;
     cursor: default;
 }
 
-.final-text{
+.final-text {
     font-size: 22px;
-    line-height: 1.4;
+    line-height: 1.5;
     text-align: center;
     display: inline-block;
-    padding: 10px 20px;
-    background-color: rgba(255,240,240,0.5);
+    padding: 20px;
+    background-color: rgba(255,240,240,0.6);
     border-radius: 12px;
+    max-height: 300px;  /* limits height */
+    overflow-y: auto;   /* scroll if too long */
 }
