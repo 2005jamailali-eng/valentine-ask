@@ -59,14 +59,19 @@ noBtn.addEventListener("mouseover", () => {
 
 // YES is clicked
 
-yesBtn.addEventListener("click", () => {
-    title.textContent = "Yippeeee!";
+document.addEventListener("DOMContentLoaded", () => {
+    const finalText = document.getElementById("final-text");
+    const yesBtn = document.querySelector(".btn[alt='Yes']");
+    const buttons = document.getElementById("letter-buttons");
+    const title = document.getElementById("letter-title");
+    const catImg = document.getElementById("letter-cat");
 
-    catImg.src = "cat_dance.gif";
-
-    document.querySelector(".letter-window").classList.add("final");
-
-    buttons.style.display = "none";
-
-    finalText.style.display = "block";
+    yesBtn.addEventListener("click", () => {
+        title.textContent = "Yippeeee!";
+        catImg.src = "cat_dance.gif";
+        document.querySelector(".letter-window").classList.add("final");
+        buttons.style.display = "none";
+        finalText.style.display = "block"; // now works
+    });
 });
+
