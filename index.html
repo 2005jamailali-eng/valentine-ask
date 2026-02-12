@@ -1,51 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Valentine Letter</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Letter</title>
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: pink;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+/* Envelope Screen */
+#envelope-container {
+    text-align: center;
+    cursor: pointer;
+}
+
+#envelope {
+    width: 200px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Letter Screen */
+#letter-container {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+/* Letter content */
+#final-text {
+    display: none;
+    margin-top: 20px;
+    background: rgba(255,240,240,0.7);
+    padding: 15px;
+    border-radius: 12px;
+    max-width: 400px;
+    text-align: left;
+}
+</style>
 </head>
 <body>
 
-    <!-- Envelope Screen -->
-    <div id="envelope-container">
-        <img src="envelope.png" alt="Envelope" id="envelope">
-        <p>♡ Letter for You ♡</p>
+<div id="envelope-container">
+    <img src="envelope.png" id="envelope" alt="Envelope">
+    <p>♡ Letter for You ♡</p>
+</div>
+
+<div id="letter-container">
+    <h1 id="letter-title">Will you be my Valentine?</h1>
+    <img src="cat_heart.gif" id="letter-cat" width="200">
+    <div id="letter-buttons">
+        <button id="yesBtn">YES 💕</button>
+        <button id="noBtn">NO 😢</button>
     </div>
+    <div id="final-text"></div>
+</div>
 
-    <!-- Letter Screen -->
-    <div id="letter-container">
-        <div class="letter-window">
-            <h1 id="letter-title">Will you be my Valentine?</h1>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const envelope = document.getElementById("envelope-container");
+    const letter = document.getElementById("letter-container");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const title = document.getElementById("letter-title");
+    const catImg = document.getElementById("letter-cat");
+    const buttons = document.getElementById("letter-buttons");
+    const finalText = document.getElementById("final-text");
 
-            <img src="cat_heart.gif" class="cat" id="letter-cat">
+    // Envelope click
+    envelope.addEventListener("click", () => {
+        envelope.style.display = "none";
+        letter.style.display = "flex";
+    });
 
-            <div class="buttons" id="letter-buttons">
-                <img src="yes.png" class="btn yes-btn" alt="Yes">
-                <div class="no-wrapper">
-                    <img src="no.png" class="btn no-btn" alt="No">
-                </div>
-            </div>
+    // NO button moves randomly
+    noBtn.addEventListener("mouseover", () => {
+        const distance = 150;
+        const angle = Math.random() * Math.PI * 2;
+        const moveX = Math.cos(angle) * distance;
+        const moveY = Math.sin(angle) * distance;
+        noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
 
-            <!-- Final Letter -->
-            <div id="final-text" class="final-text">
-                <h2>My Dearest Jul 💌</h2>
-                <p>Hi babyy, hehehe so I made this for u HAHAHA. Thank you for being my valentine baby :))).</p>
-                <p>Even tho we're in LDR, I want to make sure your Valentine is a little special.</p>
-                <p>So I made this site just for u, but pardon my work HAHAHAHAH, nag watch rako tutorial vid okay 😅</p>
-                <p>I promise to always choose you baby, so be patient with me in our LDR era hehehe. Mo abot ra lagi ang adlaw na when distance is no longer a thing between us okay?</p>
-                <p>I love you so muchiee babyyy!!!</p>
-                <p>Happy Valentine’s Day ❤️</p>
-                <p>Truly yours,<br>Jamail</p>
-            </div>
+    // YES button click
+    yesBtn.addEventListener("click", () => {
+        title.textContent = "Yippeeee!";
+        catImg.src = "cat_dance.gif";
 
-        </div>
-    </div>
+        buttons.style.display = "none";
 
-    <script src="script.js"></script>
+        // Insert long-distance letter
+        finalText.innerHTML = `
+        <h2>My Dearest Jul 💌</h2>
+        <p>Hi babyy , I made this for you. Thank you for being my valentine baby :))).</p>
+        <p>Even though we're in LDR, I want to make your Valentine a little special.</p>
+        <p>I promise to always choose you, baby. Be patient with me in our LDR era. Someday distance will no longer matter.</p>
+        <p>I love you so much, babyyy!!!</p>
+        <p>Happy Valentine’s Day ❤️</p>
+        <p>Forever yours,<br>Jamail</p>
+        `;
+        finalText.style.display = "block";
+    });
+});
+</script>
+
 </body>
 </html>
